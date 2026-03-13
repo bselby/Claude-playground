@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome | Jewel Design Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:    #FAF8F4;
+      --warm:     #F2EDE4;
+      --stone:    #D6CBBF;
+      --mink:     #9C8B7E;
+      --bark:     #3E2F27;
+      --jewel:    #4A7268;
+      --gold:     #B8944A;
+      --gold-lt:  #E8D5A3;
+      --amethyst: #7B5E8A;
+      --serif:    'Cormorant Garamond', Georgia, serif;
+      --sans:     'Inter', system-ui, sans-serif;
+      --ease:     cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--cream);
+      color: var(--bark);
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Layout ── */
+    .app {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Progress bar ── */
+    .progress-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--stone);
+      z-index: 100;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--jewel), var(--gold));
+      transition: width 0.6s var(--ease);
+    }
+
+    /* ── Nav dots ── */
+    .nav-dots {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      z-index: 100;
+    }
+    .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--stone);
+      cursor: pointer;
+      transition: all 0.3s var(--ease);
+      border: none;
+      padding: 0;
+    }
+    .dot.active { background: var(--jewel); transform: scale(1.4); }
+    .dot:hover { background: var(--mink); }
+
+    /* ── Step wrapper ── */
+    .steps-container {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .step {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 2rem 6rem;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(40px);
+      transition: opacity 0.55s var(--ease), transform 0.55s var(--ease);
+    }
+    .step.active {
+      opacity: 1;
+      pointer-events: all;
+      transform: translateY(0);
+      position: relative;
+    }
+    .step.exit-up {
+      opacity: 0;
+      transform: translateY(-40px);
+      transition: opacity 0.35s var(--ease), transform 0.35s var(--ease);
+    }
+
+    .step-inner {
+      max-width: 680px;
+      width: 100%;
+      text-align: center;
+    }
+
+    /* ── Typography ── */
+    .eyebrow {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.25rem;
+    }
+
+    h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.6rem, 6vw, 4.5rem);
+      font-weight: 300;
+      line-height: 1.1;
+      color: var(--bark);
+      margin-bottom: 1.5rem;
+    }
+
+    h2 {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4.5vw, 3.2rem);
+      font-weight: 300;
+      line-height: 1.15;
+      color: var(--bark);
+      margin-bottom: 1.25rem;
+    }
+
+    .lead {
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: var(--mink);
+      font-weight: 300;
+      max-width: 520px;
+      margin: 0 auto 2.5rem;
+    }
+
+    em {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 1.1em;
+      color: var(--bark);
+    }
+
+    /* ── Divider ── */
+    .divider {
+      width: 48px;
+      height: 1px;
+      background: var(--gold);
+      margin: 0 auto 2rem;
+    }
+
+    /* ── Button ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.9rem 2.2rem;
+      border: none;
+      cursor: pointer;
+      font-family: var(--sans);
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: all 0.3s var(--ease);
+      border-radius: 2px;
+    }
+    .btn-primary {
+      background: var(--jewel);
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background: var(--bark);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(74, 114, 104, 0.25);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--mink);
+      border: 1px solid var(--stone);
+    }
+    .btn-ghost:hover {
+      border-color: var(--mink);
+      color: var(--bark);
+    }
+    .btn svg { width: 16px; height: 16px; transition: transform 0.3s var(--ease); }
+    .btn:hover svg { transform: translateX(3px); }
+
+    .btn-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* ── Step 1: Hero ── */
+    .hero-ornament {
+      width: 60px;
+      margin: 0 auto 2rem;
+      opacity: 0.6;
+    }
+
+    .signature {
+      font-family: var(--serif);
+      font-size: 1.4rem;
+      font-style: italic;
+      color: var(--gold);
+      margin-top: 2rem;
+    }
+
+    /* ── Step 2: Philosophy ── */
+    .quote-block {
+      background: var(--warm);
+      border-left: 3px solid var(--gold);
+      padding: 2rem 2.5rem;
+      text-align: left;
+      margin: 2rem 0;
+      border-radius: 0 4px 4px 0;
+    }
+    .quote-block p {
+      font-family: var(--serif);
+      font-size: 1.35rem;
+      font-style: italic;
+      line-height: 1.6;
+      color: var(--bark);
+    }
+
+    /* ── Step 3: Process ── */
+    .phases {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin: 2rem 0;
+      text-align: left;
+    }
+    .phase-card {
+      background: var(--warm);
+      border-radius: 6px;
+      padding: 1.5rem;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid transparent;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .phase-card:hover {
+      border-color: var(--gold-lt);
+      box-shadow: 0 4px 20px rgba(62, 47, 39, 0.06);
+    }
+    .phase-num {
+      font-family: var(--serif);
+      font-size: 2.5rem;
+      font-weight: 300;
+      color: var(--gold-lt);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .phase-title {
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--jewel);
+      margin-bottom: 0.5rem;
+    }
+    .phase-desc {
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: var(--mink);
+    }
+
+    /* ── Step 4: Communication ── */
+    .comms-cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin: 2rem 0;
+      text-align: left;
+    }
+    .comm-card {
+      background: var(--warm);
+      border-radius: 6px;
+      padding: 1.5rem;
+      border: 1px solid var(--stone);
+    }
+    .comm-icon {
+      font-size: 1.6rem;
+      margin-bottom: 0.75rem;
+    }
+    .comm-title {
+      font-family: var(--sans);
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--bark);
+      margin-bottom: 0.5rem;
+    }
+    .comm-desc {
+      font-size: 0.87rem;
+      line-height: 1.65;
+      color: var(--mink);
+    }
+
+    /* ── Step 5: Next steps ── */
+    .next-steps {
+      text-align: left;
+      margin: 2rem 0;
+      counter-reset: step-counter;
+    }
+    .next-step {
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+      padding: 1.25rem 0;
+      border-bottom: 1px solid var(--stone);
+    }
+    .next-step:last-child { border-bottom: none; }
+    .step-icon {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: var(--warm);
+      border: 1px solid var(--gold-lt);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .step-text strong {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--bark);
+      margin-bottom: 0.25rem;
+    }
+    .step-text span {
+      font-size: 0.85rem;
+      color: var(--mink);
+      line-height: 1.6;
+    }
+
+    .closing-note {
+      margin-top: 2.5rem;
+      padding: 1.75rem;
+      background: linear-gradient(135deg, #F5F0E8, #EDE8DF);
+      border-radius: 8px;
+      border: 1px solid var(--gold-lt);
+    }
+    .closing-note p {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      font-style: italic;
+      line-height: 1.7;
+      color: var(--bark);
+    }
+
+    /* ── Footer nav ── */
+    .footer-nav {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      padding: 1.25rem 2rem;
+      background: linear-gradient(to top, var(--cream) 60%, transparent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      z-index: 50;
+    }
+
+    /* ── Decorative gem ── */
+    @keyframes shimmer {
+      0%, 100% { opacity: 0.5; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.08); }
+    }
+    .gem {
+      display: inline-block;
+      animation: shimmer 3s ease-in-out infinite;
+    }
+
+    /* ── Fade-in for inner elements ── */
+    .step.active .step-inner > * {
+      animation: fadeUp 0.6s var(--ease) both;
+    }
+    .step.active .step-inner > *:nth-child(1) { animation-delay: 0.05s; }
+    .step.active .step-inner > *:nth-child(2) { animation-delay: 0.12s; }
+    .step.active .step-inner > *:nth-child(3) { animation-delay: 0.19s; }
+    .step.active .step-inner > *:nth-child(4) { animation-delay: 0.26s; }
+    .step.active .step-inner > *:nth-child(5) { animation-delay: 0.33s; }
+    .step.active .step-inner > *:nth-child(6) { animation-delay: 0.4s; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 540px) {
+      .phases, .comms-cards { grid-template-columns: 1fr; }
+      .nav-dots { right: 0.75rem; }
+      h1 { font-size: 2.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Progress bar -->
+<div class="progress-bar">
+  <div class="progress-fill" id="progressFill" style="width: 20%"></div>
+</div>
+
+<!-- Nav dots -->
+<nav class="nav-dots" aria-label="Step navigation">
+  <button class="dot active" onclick="goTo(0)" aria-label="Step 1"></button>
+  <button class="dot"        onclick="goTo(1)" aria-label="Step 2"></button>
+  <button class="dot"        onclick="goTo(2)" aria-label="Step 3"></button>
+  <button class="dot"        onclick="goTo(3)" aria-label="Step 4"></button>
+  <button class="dot"        onclick="goTo(4)" aria-label="Step 5"></button>
+</nav>
+
+<div class="app">
+  <div class="steps-container" id="stepsContainer">
+
+    <!-- ── Step 1: Welcome ── -->
+    <div class="step active" id="step-0">
+      <div class="step-inner">
+        <div class="hero-ornament">
+          <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="30,4 56,20 56,40 30,56 4,40 4,20" fill="none" stroke="#B8944A" stroke-width="1.5"/>
+            <polygon points="30,12 50,24 50,36 30,48 10,36 10,24" fill="none" stroke="#B8944A" stroke-width="0.75" opacity="0.5"/>
+            <circle cx="30" cy="30" r="4" fill="#B8944A" opacity="0.7"/>
+          </svg>
+        </div>
+
+        <p class="eyebrow">A warm welcome from</p>
+        <h1>Jewel Design&nbsp;Studio</h1>
+        <div class="divider"></div>
+        <p class="lead">
+          We're so glad you're here. You've taken the first step toward a home that
+          truly reflects who you are — and we can't wait to bring that vision to life
+          <em>with you.</em>
+        </p>
+
+        <div class="btn-row">
+          <button class="btn btn-primary" onclick="next()">
+            Begin your welcome
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </button>
+        </div>
+
+        <p class="signature">— Jewel Design Studio</p>
+      </div>
+    </div>
+
+    <!-- ── Step 2: Philosophy ── -->
+    <div class="step" id="step-1">
+      <div class="step-inner">
+        <p class="eyebrow">Our promise to you</p>
+        <h2>We handle the complexity,<br/>so you don't have to.</h2>
+        <div class="divider"></div>
+
+        <div class="quote-block">
+          <p>
+            "Behind every beautiful room is an enormous amount of invisible work —
+            sourcing, scheduling, problem-solving, and precision. That's our job.
+            Yours is simply to dream."
+          </p>
+        </div>
+
+        <p class="lead">
+          From the first conversation to the final cushion placed just so, we
+          orchestrate every detail of your project. You'll always feel informed,
+          never overwhelmed — and always heard.
+        </p>
+
+        <div class="btn-row">
+          <button class="btn btn-ghost" onclick="prev()">Back</button>
+          <button class="btn btn-primary" onclick="next()">
+            See how it works
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Step 3: Process ── -->
+    <div class="step" id="step-2">
+      <div class="step-inner">
+        <p class="eyebrow">Your design journey</p>
+        <h2>Four phases, one beautiful&nbsp;result.</h2>
+        <div class="divider"></div>
+
+        <div class="phases">
+          <div class="phase-card">
+            <div class="phase-num">01</div>
+            <div class="phase-title">Discovery &amp; Consultation</div>
+            <p class="phase-desc">
+              We get to know you — your lifestyle, aspirations, and the way you
+              want to feel in your home. No spreadsheets, just conversation.
+            </p>
+          </div>
+          <div class="phase-card">
+            <div class="phase-num">02</div>
+            <div class="phase-title">Concept &amp; Moodboard</div>
+            <p class="phase-desc">
+              We translate your vision into a cohesive design direction — palette,
+              textures, and mood — so you can see the big picture before anything
+              is decided.
+            </p>
+          </div>
+          <div class="phase-card">
+            <div class="phase-num">03</div>
+            <div class="phase-title">Design Development</div>
+            <p class="phase-desc">
+              Space planning, furniture selection, material specification, and
+              every detail refined to perfection. This is where the magic deepens.
+            </p>
+          </div>
+          <div class="phase-card">
+            <div class="phase-num">04</div>
+            <div class="phase-title">Procurement &amp; Installation</div>
+            <p class="phase-desc">
+              We manage every order, delivery, and trade. On install day, you walk
+              in to a home that takes your breath away.
+            </p>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-ghost" onclick="prev()">Back</button>
+          <button class="btn btn-primary" onclick="next()">
+            Staying connected
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Step 4: Communication ── -->
+    <div class="step" id="step-3">
+      <div class="step-inner">
+        <p class="eyebrow">How we'll work together</p>
+        <h2>Clear communication,<br/>every step of the way.</h2>
+        <div class="divider"></div>
+
+        <p class="lead">
+          You'll never be left wondering where things stand. Here's how we keep
+          you in the loop without overwhelming your inbox.
+        </p>
+
+        <div class="comms-cards">
+          <div class="comm-card">
+            <div class="comm-icon">✉️</div>
+            <div class="comm-title">Email updates</div>
+            <p class="comm-desc">
+              All key decisions, approvals, and documentation are sent by email —
+              so you have a clear record of everything, always.
+            </p>
+          </div>
+          <div class="comm-card">
+            <div class="comm-icon">📞</div>
+            <div class="comm-title">Scheduled check-ins</div>
+            <p class="comm-desc">
+              At every major milestone we'll schedule a call to walk you through
+              progress, answer questions, and align on next steps.
+            </p>
+          </div>
+          <div class="comm-card">
+            <div class="comm-icon">🕐</div>
+            <div class="comm-title">Response time</div>
+            <p class="comm-desc">
+              We respond to all emails within one business day. Calls are
+              scheduled in advance so we can give you our full attention.
+            </p>
+          </div>
+          <div class="comm-card">
+            <div class="comm-icon">🤝</div>
+            <div class="comm-title">Your input matters</div>
+            <p class="comm-desc">
+              We'll ask for your approval before anything significant moves
+              forward. You're always in control of the big decisions.
+            </p>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-ghost" onclick="prev()">Back</button>
+          <button class="btn btn-primary" onclick="next()">
+            Your next steps
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Step 5: Next steps ── -->
+    <div class="step" id="step-4">
+      <div class="step-inner">
+        <p class="eyebrow">You're all set</p>
+        <h2>Here's what happens&nbsp;next.</h2>
+        <div class="divider"></div>
+
+        <div class="next-steps">
+          <div class="next-step">
+            <div class="step-icon">📅</div>
+            <div class="step-text">
+              <strong>Watch for your welcome email</strong>
+              <span>We'll send over a brief questionnaire about your project scope,
+              timeline, and initial inspirations — usually within 24 hours.</span>
+            </div>
+          </div>
+          <div class="next-step">
+            <div class="step-icon">☎️</div>
+            <div class="step-text">
+              <strong>Book your discovery call</strong>
+              <span>A relaxed, 45-minute conversation where we get to know you,
+              your home, and your vision. No pressure — just possibilities.</span>
+            </div>
+          </div>
+          <div class="next-step">
+            <div class="step-icon">✨</div>
+            <div class="step-text">
+              <strong>We get to work</strong>
+              <span>Once we've aligned on scope and signed off on the proposal,
+              your project is officially underway — and we couldn't be more excited.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="closing-note">
+          <p>
+            "Your home is one of the most personal spaces you'll ever create.
+            We take that trust seriously — and we're honoured you've chosen
+            Jewel Design Studio to be part of the story."
+          </p>
+        </div>
+
+        <div class="btn-row" style="margin-top: 2rem;">
+          <button class="btn btn-ghost" onclick="prev()">Back</button>
+          <button class="btn btn-primary" onclick="complete()" style="background: var(--gold);">
+            <span class="gem">✦</span> I'm ready — let's begin
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /steps-container -->
+</div>
+
+<!-- Footer nav hint -->
+<div class="footer-nav" id="footerNav">
+  <span style="font-size:0.75rem; color: var(--mink); letter-spacing: 0.08em;">
+    Step <span id="stepNum">1</span> of 5
+  </span>
+</div>
+
+<!-- Completion overlay -->
+<div id="completeOverlay" style="
+  display: none;
+  position: fixed; inset: 0;
+  background: var(--cream);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 2rem;
+  animation: fadeIn 0.6s ease both;
+">
+  <svg width="64" height="64" viewBox="0 0 60 60" fill="none">
+    <polygon points="30,4 56,20 56,40 30,56 4,40 4,20" fill="none" stroke="#B8944A" stroke-width="1.5"/>
+    <path d="M20 30l8 8 14-14" stroke="#4A7268" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+  <p style="font-family: var(--serif); font-size: 0.85rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold);">Welcome to the family</p>
+  <h1 style="font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 300; line-height: 1.15;">
+    We can't wait to<br/>make your home
+    <em>extraordinary.</em>
+  </h1>
+  <div class="divider"></div>
+  <p style="font-size: 1rem; color: var(--mink); max-width: 420px; line-height: 1.7;">
+    Check your inbox — your welcome email from Jewel Design Studio
+    will be with you shortly.
+  </p>
+</div>
+
+<style>
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+</style>
+
+<script>
+  let current = 0;
+  const total = 5;
+  const steps = Array.from(document.querySelectorAll('.step'));
+  const dots  = Array.from(document.querySelectorAll('.dot'));
+  const fill  = document.getElementById('progressFill');
+  const num   = document.getElementById('stepNum');
+
+  function update() {
+    steps.forEach((s, i) => {
+      s.classList.remove('active', 'exit-up');
+    });
+    steps[current].classList.add('active');
+    dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    fill.style.width = ((current + 1) / total * 100) + '%';
+    num.textContent = current + 1;
+
+    // Scroll to top on mobile
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function next() {
+    if (current < total - 1) {
+      steps[current].classList.add('exit-up');
+      setTimeout(() => {
+        current++;
+        update();
+      }, 320);
+    }
+  }
+
+  function prev() {
+    if (current > 0) {
+      current--;
+      update();
+    }
+  }
+
+  function goTo(i) {
+    if (i !== current) {
+      current = i;
+      update();
+    }
+  }
+
+  function complete() {
+    const overlay = document.getElementById('completeOverlay');
+    overlay.style.display = 'flex';
+    overlay.style.animation = 'fadeIn 0.7s ease both';
+  }
+
+  // Keyboard navigation
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next();
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   prev();
+  });
+</script>
+
+</body>
+</html>
