@@ -6,22 +6,22 @@
   <title>Welcome | Jewel Design Studio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@700;800;900&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --cream:    #FAF8F4;
-      --warm:     #F2EDE4;
-      --stone:    #D6CBBF;
-      --mink:     #9C8B7E;
-      --bark:     #3E2F27;
-      --jewel:    #4A7268;
-      --gold:     #B8944A;
-      --gold-lt:  #E8D5A3;
-      --amethyst: #7B5E8A;
-      --serif:    'Cormorant Garamond', Georgia, serif;
-      --sans:     'Inter', system-ui, sans-serif;
+      --cream:    #f2eae0;
+      --warm:     #e8ddd1;
+      --stone:    #c4b3a3;
+      --mink:     #8a7060;
+      --bark:     #501c28;
+      --jewel:    #501c28;
+      --gold:     #fa6237;
+      --gold-lt:  #afc3c8;
+      --display:  'Barlow', system-ui, sans-serif;
+      --serif:    'Playfair Display', Georgia, serif;
+      --sans:     'Space Grotesk', system-ui, sans-serif;
       --ease:     cubic-bezier(0.4, 0, 0.2, 1);
     }
 
@@ -126,21 +126,23 @@
     }
 
     h1 {
-      font-family: var(--serif);
-      font-size: clamp(2.6rem, 6vw, 4.5rem);
-      font-weight: 300;
-      line-height: 1.1;
+      font-family: var(--display);
+      font-size: clamp(2.6rem, 6vw, 4.8rem);
+      font-weight: 900;
+      line-height: 1.0;
       color: var(--bark);
       margin-bottom: 1.5rem;
+      letter-spacing: -0.01em;
     }
 
     h2 {
-      font-family: var(--serif);
-      font-size: clamp(2rem, 4.5vw, 3.2rem);
-      font-weight: 300;
-      line-height: 1.15;
+      font-family: var(--display);
+      font-size: clamp(2rem, 4.5vw, 3.4rem);
+      font-weight: 900;
+      line-height: 1.05;
       color: var(--bark);
       margin-bottom: 1.25rem;
+      letter-spacing: -0.01em;
     }
 
     .lead {
@@ -188,9 +190,10 @@
       color: #fff;
     }
     .btn-primary:hover {
-      background: var(--bark);
+      background: var(--gold);
+      color: #fff;
       transform: translateY(-1px);
-      box-shadow: 0 8px 24px rgba(74, 114, 104, 0.25);
+      box-shadow: 0 8px 24px rgba(250, 98, 55, 0.3);
     }
     .btn-ghost {
       background: transparent;
@@ -266,12 +269,13 @@
       box-shadow: 0 4px 20px rgba(62, 47, 39, 0.06);
     }
     .phase-num {
-      font-family: var(--serif);
+      font-family: var(--display);
       font-size: 2.5rem;
-      font-weight: 300;
+      font-weight: 900;
       color: var(--gold-lt);
       line-height: 1;
       margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
     }
     .phase-title {
       font-family: var(--sans);
@@ -359,17 +363,17 @@
 
     .closing-note {
       margin-top: 2.5rem;
-      padding: 1.75rem;
-      background: linear-gradient(135deg, #F5F0E8, #EDE8DF);
-      border-radius: 8px;
-      border: 1px solid var(--gold-lt);
+      padding: 2rem 2.25rem;
+      background: var(--bark);
+      border-radius: 0;
+      border-left: 3px solid var(--gold);
     }
     .closing-note p {
       font-family: var(--serif);
       font-size: 1.15rem;
       font-style: italic;
       line-height: 1.7;
-      color: var(--bark);
+      color: var(--cream);
     }
 
     /* ── Footer nav ── */
@@ -443,9 +447,9 @@
       <div class="step-inner">
         <div class="hero-ornament">
           <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <polygon points="30,4 56,20 56,40 30,56 4,40 4,20" fill="none" stroke="#B8944A" stroke-width="1.5"/>
-            <polygon points="30,12 50,24 50,36 30,48 10,36 10,24" fill="none" stroke="#B8944A" stroke-width="0.75" opacity="0.5"/>
-            <circle cx="30" cy="30" r="4" fill="#B8944A" opacity="0.7"/>
+            <polygon points="30,4 56,20 56,40 30,56 4,40 4,20" fill="none" stroke="#fa6237" stroke-width="1.5"/>
+            <polygon points="30,12 50,24 50,36 30,48 10,36 10,24" fill="none" stroke="#501c28" stroke-width="0.75" opacity="0.6"/>
+            <circle cx="30" cy="30" r="4" fill="#501c28" opacity="0.8"/>
           </svg>
         </div>
 
@@ -694,8 +698,8 @@
   animation: fadeIn 0.6s ease both;
 ">
   <svg width="64" height="64" viewBox="0 0 60 60" fill="none">
-    <polygon points="30,4 56,20 56,40 30,56 4,40 4,20" fill="none" stroke="#B8944A" stroke-width="1.5"/>
-    <path d="M20 30l8 8 14-14" stroke="#4A7268" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="30,4 56,20 56,40 30,56 4,40 4,20" fill="none" stroke="#fa6237" stroke-width="1.5"/>
+    <path d="M20 30l8 8 14-14" stroke="#501c28" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
   <p style="font-family: var(--serif); font-size: 0.85rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold);">Welcome to the family</p>
   <h1 style="font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 300; line-height: 1.15;">
