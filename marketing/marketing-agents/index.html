@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Content Studio — Jewel Design Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700&family=Playfair+Display:wght@500;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #f2eae0;
+      --burgundy: #501c28;
+      --burgundy-light: #6b2a38;
+      --burgundy-faint: rgba(80, 28, 40, 0.08);
+      --text: #2c2c2c;
+      --text-light: #666;
+      --border: rgba(80, 28, 40, 0.15);
+      --white: #fff;
+      --success: #2d6a4f;
+      --radius: 8px;
+    }
+
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .gem-icon svg {
+      width: 40px;
+      height: 40px;
+      fill: var(--burgundy);
+    }
+
+    .header h1 {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-size: 1.75rem;
+      color: var(--burgundy);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .header .subtitle {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.85rem;
+      color: var(--text-light);
+      margin-top: 0.1rem;
+    }
+
+    /* API Key */
+    .api-key-section {
+      margin-bottom: 2rem;
+    }
+
+    .api-key-section label {
+      display: block;
+      font-weight: 500;
+      font-size: 0.85rem;
+      margin-bottom: 0.4rem;
+      color: var(--text-light);
+    }
+
+    .api-key-row {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .api-key-row input {
+      flex: 1;
+      padding: 0.6rem 0.8rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.9rem;
+      background: var(--white);
+    }
+
+    .api-key-row button {
+      padding: 0.6rem 1rem;
+      background: var(--burgundy);
+      color: var(--white);
+      border: none;
+      border-radius: var(--radius);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.85rem;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .api-key-row button:hover { background: var(--burgundy-light); }
+
+    .api-status {
+      font-size: 0.8rem;
+      margin-top: 0.3rem;
+      color: var(--text-light);
+    }
+
+    .api-status.connected { color: var(--success); }
+
+    /* Sections */
+    .section {
+      background: var(--white);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+    }
+
+    .section-header {
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: default;
+    }
+
+    .section-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--burgundy);
+    }
+
+    .section-body {
+      padding: 0 1.25rem 1.25rem;
+    }
+
+    /* Forms */
+    label {
+      display: block;
+      font-weight: 500;
+      font-size: 0.85rem;
+      margin-bottom: 0.4rem;
+      color: var(--text);
+    }
+
+    input[type="text"], textarea, select {
+      width: 100%;
+      padding: 0.65rem 0.8rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.9rem;
+      background: var(--white);
+      color: var(--text);
+      resize: vertical;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: var(--burgundy);
+    }
+
+    textarea { min-height: 80px; }
+
+    .form-group { margin-bottom: 1rem; }
+    .form-group:last-child { margin-bottom: 0; }
+
+    /* Mode toggle */
+    .mode-toggle {
+      display: flex;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .mode-toggle button {
+      flex: 1;
+      padding: 0.6rem;
+      border: none;
+      background: var(--white);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.85rem;
+      cursor: pointer;
+      color: var(--text-light);
+      transition: all 0.2s;
+    }
+
+    .mode-toggle button.active {
+      background: var(--burgundy);
+      color: var(--white);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      padding: 0.7rem 1.2rem;
+      border: none;
+      border-radius: var(--radius);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--burgundy);
+      color: var(--white);
+      width: 100%;
+      padding: 0.85rem;
+      font-size: 0.95rem;
+    }
+
+    .btn-primary:hover { background: var(--burgundy-light); }
+    .btn-primary:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .btn-small {
+      padding: 0.4rem 0.7rem;
+      font-size: 0.8rem;
+      border-radius: 6px;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .btn-outline:hover { background: var(--burgundy-faint); }
+
+    .btn-approve {
+      background: var(--success);
+      color: var(--white);
+    }
+
+    .btn-approve:hover { background: #245a42; }
+
+    .output-actions {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.75rem;
+    }
+
+    /* Agent output sections */
+    .agent-section {
+      display: none;
+    }
+
+    .agent-section.visible {
+      display: block;
+    }
+
+    .agent-section .section-header {
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .agent-section .section-header .toggle-icon {
+      transition: transform 0.2s;
+      font-size: 0.8rem;
+      color: var(--text-light);
+    }
+
+    .agent-section.collapsed .section-body {
+      display: none;
+    }
+
+    .agent-section.collapsed .toggle-icon {
+      transform: rotate(-90deg);
+    }
+
+    .output-content {
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem;
+      font-size: 0.9rem;
+      line-height: 1.7;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      max-height: 600px;
+      overflow-y: auto;
+    }
+
+    .output-content.editable {
+      background: var(--white);
+      border-color: var(--burgundy);
+      outline: none;
+    }
+
+    .output-content h1, .output-content h2, .output-content h3 {
+      font-family: 'Playfair Display', serif;
+      color: var(--burgundy);
+      margin: 1rem 0 0.5rem;
+    }
+
+    .output-content h1:first-child, .output-content h2:first-child,
+    .output-content h3:first-child { margin-top: 0; }
+
+    .approved-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.3rem 0.6rem;
+      background: rgba(45, 106, 79, 0.1);
+      color: var(--success);
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    /* Progress */
+    .progress-bar {
+      display: none;
+      margin-bottom: 1rem;
+    }
+
+    .progress-bar.active { display: block; }
+
+    .progress-track {
+      height: 4px;
+      background: var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--burgundy);
+      border-radius: 2px;
+      transition: width 0.3s;
+      animation: progress-pulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes progress-pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+
+    .progress-text {
+      font-size: 0.8rem;
+      color: var(--text-light);
+      margin-top: 0.4rem;
+    }
+
+    /* Save All */
+    .save-section {
+      display: none;
+      text-align: center;
+      padding: 1.5rem 0;
+    }
+
+    .save-section.visible { display: block; }
+
+    /* Separator */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 2rem 0;
+    }
+
+    /* Email agent separate section */
+    .email-section .section-header {
+      background: var(--burgundy-faint);
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .container { padding: 1.25rem 1rem 3rem; }
+      .header h1 { font-size: 1.4rem; }
+      .output-content { max-height: 400px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Header -->
+    <div class="header">
+      <div class="gem-icon">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="50,5 85,30 75,85 25,85 15,30" fill="none" stroke="currentColor" stroke-width="4"/>
+          <polyline points="15,30 50,45 85,30" fill="none" stroke="currentColor" stroke-width="3"/>
+          <line x1="50" y1="45" x2="50" y2="85" stroke="currentColor" stroke-width="3"/>
+          <line x1="50" y1="45" x2="25" y2="85" stroke="currentColor" stroke-width="2" opacity="0.5"/>
+          <line x1="50" y1="45" x2="75" y2="85" stroke="currentColor" stroke-width="2" opacity="0.5"/>
+        </svg>
+      </div>
+      <div>
+        <h1>Content Studio</h1>
+        <div class="subtitle">Jewel Design Studio</div>
+      </div>
+    </div>
+
+    <!-- API Key -->
+    <div class="api-key-section">
+      <label>Anthropic API Key</label>
+      <div class="api-key-row">
+        <input type="password" id="apiKey" placeholder="sk-ant-..." />
+        <button onclick="saveApiKey()">Save</button>
+      </div>
+      <div id="apiStatus" class="api-status"></div>
+      <div style="font-size: 0.75rem; color: var(--text-light); margin-top: 0.2rem;">Key is stored in your browser's localStorage. Only use this on a trusted device.</div>
+    </div>
+
+    <!-- Weekly Content Input -->
+    <div class="section">
+      <div class="section-header">
+        <h2>Weekly Content</h2>
+      </div>
+      <div class="section-body">
+        <div class="form-group">
+          <label for="topic">This week's topic</label>
+          <input type="text" id="topic" placeholder="e.g. The Tooting Bec bathroom — designing a spa at home on a real budget" />
+        </div>
+        <div class="form-group">
+          <label for="context">Additional context (optional)</label>
+          <textarea id="context" placeholder="e.g. Linking to the consultation offer this week..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>Mode</label>
+          <div class="mode-toggle">
+            <button id="modeQuality" class="active" onclick="setMode('quality')">Quality (Opus writer)</button>
+            <button id="modeFast" onclick="setMode('fast')">Fast (Sonnet only)</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary" id="btnGenerate" onclick="runStrategist()" disabled>
+            Generate week's content
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Progress -->
+    <div class="progress-bar" id="progress">
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+      </div>
+      <div class="progress-text" id="progressText"></div>
+    </div>
+
+    <!-- Agent 1: Strategist -->
+    <div class="agent-section" id="agent1Section">
+      <div class="section" >
+        <div class="section-header" onclick="toggleSection('agent1Section')">
+          <h2>Content Brief <span class="approved-badge" id="agent1Badge" style="display:none">Approved</span></h2>
+          <span class="toggle-icon">&#9660;</span>
+        </div>
+        <div class="section-body">
+          <div class="output-actions">
+            <button class="btn btn-small btn-outline" onclick="toggleEdit('agent1Output')">Edit</button>
+            <button class="btn btn-small btn-outline" onclick="copyOutput('agent1Output')">Copy</button>
+            <button class="btn btn-small btn-approve" id="agent1Approve" onclick="approveAgent(1)">Approve &amp; run Writer</button>
+          </div>
+          <div class="output-content" id="agent1Output"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Agent 2: Writer -->
+    <div class="agent-section" id="agent2Section">
+      <div class="section">
+        <div class="section-header" onclick="toggleSection('agent2Section')">
+          <h2>Written Content <span class="approved-badge" id="agent2Badge" style="display:none">Approved</span></h2>
+          <span class="toggle-icon">&#9660;</span>
+        </div>
+        <div class="section-body">
+          <div class="output-actions">
+            <button class="btn btn-small btn-outline" onclick="toggleEdit('agent2Output')">Edit</button>
+            <button class="btn btn-small btn-outline" onclick="copyOutput('agent2Output')">Copy</button>
+            <button class="btn btn-small btn-approve" id="agent2Approve" onclick="approveAgent(2)">Approve &amp; run Social</button>
+          </div>
+          <div class="output-content" id="agent2Output"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Agent 4: Social -->
+    <div class="agent-section" id="agent4Section">
+      <div class="section">
+        <div class="section-header" onclick="toggleSection('agent4Section')">
+          <h2>Social Optimisation <span class="approved-badge" id="agent4Badge" style="display:none">Approved</span></h2>
+          <span class="toggle-icon">&#9660;</span>
+        </div>
+        <div class="section-body">
+          <div class="output-actions">
+            <button class="btn btn-small btn-outline" onclick="toggleEdit('agent4Output')">Edit</button>
+            <button class="btn btn-small btn-outline" onclick="copyOutput('agent4Output')">Copy</button>
+            <button class="btn btn-small btn-approve" id="agent4Approve" onclick="approveAgent(4)">Approve</button>
+          </div>
+          <div class="output-content" id="agent4Output"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Save All -->
+    <div class="save-section" id="saveSection">
+      <button class="btn btn-primary" onclick="saveAll()" style="max-width: 400px; margin: 0 auto;">
+        Save all as Markdown
+      </button>
+    </div>
+
+    <hr class="divider">
+
+    <!-- Agent 3: Email (Separate) -->
+    <div class="section email-section">
+      <div class="section-header">
+        <h2>Email Sequences</h2>
+      </div>
+      <div class="section-body">
+        <p style="font-size: 0.85rem; color: var(--text-light); margin-bottom: 1rem;">
+          Run independently — not part of the weekly content flow.
+        </p>
+        <div class="form-group">
+          <label for="journeyType">Customer journey</label>
+          <select id="journeyType">
+            <option value="digital-product">Digital Product Buyer</option>
+            <option value="interiors-sos">Interiors SOS Client</option>
+            <option value="style-space">Style &amp; Space Client</option>
+            <option value="journal-subscriber">New Journal Subscriber</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="emailNotes">Notes (optional)</label>
+          <textarea id="emailNotes" placeholder="e.g. Consultation notes, product purchased, etc."></textarea>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary" id="btnEmail" onclick="runEmailAgent()" disabled>
+            Generate email sequence
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Agent 3 Output -->
+    <div class="agent-section" id="agent3Section">
+      <div class="section">
+        <div class="section-header" onclick="toggleSection('agent3Section')">
+          <h2>Email Sequence Output</h2>
+          <span class="toggle-icon">&#9660;</span>
+        </div>
+        <div class="section-body">
+          <div class="output-actions">
+            <button class="btn btn-small btn-outline" onclick="toggleEdit('agent3Output')">Edit</button>
+            <button class="btn btn-small btn-outline" onclick="copyOutput('agent3Output')">Copy</button>
+          </div>
+          <div class="output-content" id="agent3Output"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // --- State ---
+    let apiKey = '';
+    let mode = 'quality';
+    let brandContext = '';
+    let agentPrompts = {};
+    let outputs = { agent1: '', agent2: '', agent3: '', agent4: '' };
+
+    // --- Init ---
+    async function init() {
+      // Try to load API key from .env file (relative to marketing/ root)
+      try {
+        const envRes = await fetch('../.env');
+        if (envRes.ok) {
+          const envText = await envRes.text();
+          const match = envText.match(/ANTHROPIC_API_KEY=(.+)/);
+          if (match) {
+            apiKey = match[1].trim();
+          }
+        }
+      } catch (e) {
+        // .env not available — fall back to manual entry
+      }
+
+      // Fall back to localStorage if .env didn't provide a key
+      if (!apiKey) {
+        apiKey = localStorage.getItem('jds_api_key') || '';
+      }
+
+      if (apiKey) {
+        document.getElementById('apiKey').value = apiKey;
+        updateApiStatus(true);
+      }
+      await loadAssets();
+      updateButtons();
+    }
+
+    async function loadAssets() {
+      try {
+        const [ctxRes, stratRes, writerRes, emailRes, socialRes] = await Promise.all([
+          fetch('brand/context.md'),
+          fetch('agents/strategist.md'),
+          fetch('agents/writer.md'),
+          fetch('agents/email.md'),
+          fetch('agents/social.md'),
+        ]);
+        brandContext = await ctxRes.text();
+        agentPrompts.strategist = (await stratRes.text()).replace('[Brand context from context.md injected at runtime]', brandContext);
+        agentPrompts.writer = (await writerRes.text()).replace('[Brand context from context.md injected at runtime]', brandContext);
+        agentPrompts.email = (await emailRes.text()).replace('[Brand context from context.md injected at runtime]', brandContext);
+        agentPrompts.social = (await socialRes.text()).replace('[Brand context from context.md injected at runtime]', brandContext);
+      } catch (e) {
+        console.error('Failed to load assets:', e);
+        document.getElementById('apiStatus').textContent = 'Error: failed to load agent files. Serve this directory via a local server.';
+        document.getElementById('apiStatus').className = 'api-status';
+        document.getElementById('btnGenerate').disabled = true;
+        document.getElementById('btnEmail').disabled = true;
+      }
+    }
+
+    // --- API Key ---
+    function saveApiKey() {
+      apiKey = document.getElementById('apiKey').value.trim();
+      if (apiKey) {
+        localStorage.setItem('jds_api_key', apiKey);
+        updateApiStatus(true);
+        updateButtons();
+      }
+    }
+
+    function updateApiStatus(connected) {
+      const el = document.getElementById('apiStatus');
+      if (connected) {
+        el.textContent = 'Key saved';
+        el.className = 'api-status connected';
+      } else {
+        el.textContent = '';
+        el.className = 'api-status';
+      }
+    }
+
+    function updateButtons() {
+      const hasKey = !!apiKey;
+      document.getElementById('btnGenerate').disabled = !hasKey;
+      document.getElementById('btnEmail').disabled = !hasKey;
+    }
+
+    // --- Mode ---
+    function setMode(m) {
+      mode = m;
+      document.getElementById('modeQuality').classList.toggle('active', m === 'quality');
+      document.getElementById('modeFast').classList.toggle('active', m === 'fast');
+    }
+
+    // --- API Call ---
+    async function callAgent(systemPrompt, userMessage, model) {
+      const response = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': apiKey,
+          'anthropic-version': '2023-06-01',
+          'anthropic-dangerous-direct-browser-access': 'true',
+        },
+        body: JSON.stringify({
+          model: model,
+          max_tokens: 4096,
+          system: systemPrompt,
+          messages: [{ role: 'user', content: userMessage }],
+        }),
+      });
+
+      if (!response.ok) {
+        const err = await response.text();
+        throw new Error(`API error (${response.status}): ${err}`);
+      }
+
+      const data = await response.json();
+      return data.content[0].text;
+    }
+
+    // --- Progress ---
+    function showProgress(text, percent) {
+      const bar = document.getElementById('progress');
+      bar.classList.add('active');
+      document.getElementById('progressFill').style.width = percent + '%';
+      document.getElementById('progressText').textContent = text;
+    }
+
+    function hideProgress() {
+      document.getElementById('progress').classList.remove('active');
+    }
+
+    // --- Section toggle ---
+    function toggleSection(id) {
+      document.getElementById(id).classList.toggle('collapsed');
+    }
+
+    // --- Edit / Copy / Approve ---
+    function toggleEdit(outputId) {
+      const el = document.getElementById(outputId);
+      const isEditable = el.contentEditable === 'true';
+      el.contentEditable = !isEditable;
+      el.classList.toggle('editable', !isEditable);
+      if (!isEditable) el.focus();
+    }
+
+    function copyOutput(outputId) {
+      const el = document.getElementById(outputId);
+      const text = el.innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = el.closest('.section-body').querySelector('.output-actions button:nth-child(2)');
+        const orig = btn.textContent;
+        btn.textContent = 'Copied';
+        setTimeout(() => btn.textContent = orig, 1500);
+      });
+    }
+
+    function approveAgent(agentNum) {
+      const outputEl = document.getElementById(`agent${agentNum}Output`);
+      outputEl.contentEditable = 'false';
+      outputEl.classList.remove('editable');
+
+      // Update stored output with any edits
+      outputs[`agent${agentNum}`] = outputEl.innerText;
+
+      // Show badge, hide approve button
+      document.getElementById(`agent${agentNum}Badge`).style.display = 'inline-flex';
+      document.getElementById(`agent${agentNum}Approve`).style.display = 'none';
+
+      // Trigger next agent
+      if (agentNum === 1) runWriter();
+      else if (agentNum === 2) runSocial();
+      else if (agentNum === 4) {
+        document.getElementById('saveSection').classList.add('visible');
+      }
+    }
+
+    // --- Agent Runners ---
+    async function runStrategist() {
+      const topic = document.getElementById('topic').value.trim();
+      if (!topic) { alert('Please enter a topic.'); return; }
+
+      const context = document.getElementById('context').value.trim();
+      const userMsg = `Topic: ${topic}${context ? `\n\nAdditional context: ${context}` : ''}`;
+
+      document.getElementById('btnGenerate').disabled = true;
+      showProgress('Running Content Strategist...', 25);
+
+      try {
+        const result = await callAgent(agentPrompts.strategist, userMsg, 'claude-sonnet-4-20250514');
+        outputs.agent1 = result;
+        document.getElementById('agent1Output').innerText = result;
+        document.getElementById('agent1Section').classList.add('visible');
+        document.getElementById('agent1Badge').style.display = 'none';
+        document.getElementById('agent1Approve').style.display = '';
+        hideProgress();
+        document.getElementById('btnGenerate').disabled = false;
+      } catch (e) {
+        hideProgress();
+        alert('Strategist error: ' + e.message);
+        document.getElementById('btnGenerate').disabled = false;
+      }
+    }
+
+    async function runWriter() {
+      const writerModel = mode === 'quality' ? 'claude-opus-4-6' : 'claude-sonnet-4-20250514';
+      const userMsg = `Here is the content brief from the strategist. Write all the content as specified in your instructions.\n\n${outputs.agent1}`;
+
+      showProgress('Running Writer (' + (mode === 'quality' ? 'Opus' : 'Sonnet') + ')...', 50);
+
+      try {
+        const result = await callAgent(agentPrompts.writer, userMsg, writerModel);
+        outputs.agent2 = result;
+        document.getElementById('agent2Output').innerText = result;
+        document.getElementById('agent2Section').classList.add('visible');
+        document.getElementById('agent2Badge').style.display = 'none';
+        document.getElementById('agent2Approve').style.display = '';
+        hideProgress();
+      } catch (e) {
+        hideProgress();
+        alert('Writer error: ' + e.message);
+      }
+    }
+
+    async function runSocial() {
+      const userMsg = `Here is the written content from the writer. Optimise it for social media as specified in your instructions.\n\n${outputs.agent2}`;
+
+      showProgress('Running Social Media Manager...', 75);
+
+      try {
+        const result = await callAgent(agentPrompts.social, userMsg, 'claude-sonnet-4-20250514');
+        outputs.agent4 = result;
+        document.getElementById('agent4Output').innerText = result;
+        document.getElementById('agent4Section').classList.add('visible');
+        document.getElementById('agent4Badge').style.display = 'none';
+        document.getElementById('agent4Approve').style.display = '';
+        hideProgress();
+      } catch (e) {
+        hideProgress();
+        alert('Social agent error: ' + e.message);
+      }
+    }
+
+    async function runEmailAgent() {
+      const journey = document.getElementById('journeyType').value;
+      const notes = document.getElementById('emailNotes').value.trim();
+
+      const journeyNames = {
+        'digital-product': 'Digital Product Buyer',
+        'interiors-sos': 'Interiors SOS Consultation Client',
+        'style-space': 'Style & Space Consultation Client',
+        'journal-subscriber': 'New Journal Subscriber',
+      };
+
+      const userMsg = `Generate the complete email sequence for: ${journeyNames[journey]}${notes ? `\n\nNotes from Ben: ${notes}` : ''}`;
+
+      document.getElementById('btnEmail').disabled = true;
+      showProgress('Running Email Marketer...', 50);
+
+      try {
+        const result = await callAgent(agentPrompts.email, userMsg, 'claude-sonnet-4-20250514');
+        outputs.agent3 = result;
+        document.getElementById('agent3Output').innerText = result;
+        document.getElementById('agent3Section').classList.add('visible');
+        hideProgress();
+        document.getElementById('btnEmail').disabled = false;
+      } catch (e) {
+        hideProgress();
+        alert('Email agent error: ' + e.message);
+        document.getElementById('btnEmail').disabled = false;
+      }
+    }
+
+    // --- Save All ---
+    function saveAll() {
+      const date = new Date().toISOString().split('T')[0];
+      let md = `# Weekly Content — ${date}\n\n`;
+      md += `## Content Brief (Agent 1)\n\n${outputs.agent1}\n\n---\n\n`;
+      md += `## Written Content (Agent 2)\n\n${outputs.agent2}\n\n---\n\n`;
+      md += `## Social Optimisation (Agent 4)\n\n${outputs.agent4}\n\n`;
+
+      const blob = new Blob([md], { type: 'text/markdown' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `weekly-content-${date}.md`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    // --- Start ---
+    init();
+  </script>
+</body>
+</html>
