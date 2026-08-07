@@ -11,7 +11,7 @@ struct HomeView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color(hex: "F4F7F3").ignoresSafeArea()
+                Color(hex: "FBF6EE").ignoresSafeArea()
 
                 ScrollView {
                     VStack(spacing: 0) {
@@ -35,7 +35,7 @@ struct HomeView: View {
                                 .font(.system(size: 11, weight: .medium))
                                 .tracking(1.2)
                                 .textCase(.uppercase)
-                                .foregroundColor(Color(hex: "7A9183"))
+                                .foregroundColor(Color(hex: "9A7B68"))
                                 .padding(.horizontal, 20)
 
                             ScrollView(.horizontal, showsIndicators: false) {
@@ -63,7 +63,7 @@ struct HomeView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: { showingSettings = true }) {
                         Image(systemName: "slider.horizontal.3")
-                            .foregroundColor(Color(hex: "4A6B50"))
+                            .foregroundColor(Color(hex: "C55A3A"))
                     }
                 }
             }
@@ -85,7 +85,7 @@ struct WeekHeroView: View {
                 ZStack {
                     Text("\(info.id)")
                         .font(.custom("Palatino", size: 160))
-                        .foregroundColor(Color(hex: "4A6B50").opacity(0.07))
+                        .foregroundColor(Color(hex: "C55A3A").opacity(0.07))
                         .frame(height: 160)
 
                     VStack(spacing: 4) {
@@ -93,11 +93,11 @@ struct WeekHeroView: View {
                             .font(.system(size: 72))
                         Text(info.produceName)
                             .font(.custom("Palatino", size: 22))
-                            .foregroundColor(Color(hex: "1A2820"))
+                            .foregroundColor(Color(hex: "4A3525"))
                             .multilineTextAlignment(.center)
                         Text(info.produceTagline)
                             .font(.system(size: 12))
-                            .foregroundColor(Color(hex: "7A9183"))
+                            .foregroundColor(Color(hex: "9A7B68"))
                             .multilineTextAlignment(.center)
                             .padding(.horizontal, 24)
                             .padding(.top, 2)
@@ -107,16 +107,16 @@ struct WeekHeroView: View {
                 .padding(.vertical, 28)
 
                 Divider()
-                    .overlay(Color(hex: "C8D4C2"))
+                    .overlay(Color(hex: "F0DDD0"))
 
                 // Stats row
                 HStack {
                     StatCell(label: "Week", value: "\(info.id)")
-                    Divider().frame(height: 32).overlay(Color(hex: "C8D4C2"))
+                    Divider().frame(height: 32).overlay(Color(hex: "F0DDD0"))
                     StatCell(label: "Length", value: info.formattedLength)
-                    Divider().frame(height: 32).overlay(Color(hex: "C8D4C2"))
+                    Divider().frame(height: 32).overlay(Color(hex: "F0DDD0"))
                     StatCell(label: "Weight", value: info.formattedWeight)
-                    Divider().frame(height: 32).overlay(Color(hex: "C8D4C2"))
+                    Divider().frame(height: 32).overlay(Color(hex: "F0DDD0"))
                     StatCell(label: "Days left", value: "\(max(daysRemaining, 0))")
                 }
                 .padding(.vertical, 16)
@@ -126,7 +126,7 @@ struct WeekHeroView: View {
             .clipShape(RoundedRectangle(cornerRadius: 20))
             .overlay(
                 RoundedRectangle(cornerRadius: 20)
-                    .stroke(Color(hex: "C8D4C2"), lineWidth: 1)
+                    .stroke(Color(hex: "F0DDD0"), lineWidth: 1)
             )
         }
         .buttonStyle(.plain)
@@ -141,13 +141,13 @@ struct StatCell: View {
         VStack(spacing: 4) {
             Text(value)
                 .font(.custom("Palatino", size: 18))
-                .foregroundColor(Color(hex: "1A2820"))
+                .foregroundColor(Color(hex: "4A3525"))
                 .fontVariant(.none)
             Text(label)
                 .font(.system(size: 10, weight: .medium))
                 .tracking(0.8)
                 .textCase(.uppercase)
-                .foregroundColor(Color(hex: "7A9183"))
+                .foregroundColor(Color(hex: "9A7B68"))
         }
         .frame(maxWidth: .infinity)
     }
@@ -163,16 +163,16 @@ struct WisdomCard: View {
                     .font(.system(size: 11, weight: .medium))
                     .tracking(1.2)
                     .textCase(.uppercase)
-                    .foregroundColor(Color(hex: "7A9183"))
+                    .foregroundColor(Color(hex: "9A7B68"))
                 Spacer()
                 Image(systemName: "leaf.fill")
                     .font(.system(size: 11))
-                    .foregroundColor(Color(hex: "4A6B50").opacity(0.5))
+                    .foregroundColor(Color(hex: "C55A3A").opacity(0.5))
             }
 
             Text(wisdom)
                 .font(.system(size: 15))
-                .foregroundColor(Color(hex: "1A2820"))
+                .foregroundColor(Color(hex: "4A3525"))
                 .lineSpacing(5)
                 .fixedSize(horizontal: false, vertical: true)
         }
@@ -181,7 +181,7 @@ struct WisdomCard: View {
         .clipShape(RoundedRectangle(cornerRadius: 16))
         .overlay(
             RoundedRectangle(cornerRadius: 16)
-                .stroke(Color(hex: "C8D4C2"), lineWidth: 1)
+                .stroke(Color(hex: "F0DDD0"), lineWidth: 1)
         )
     }
 }
@@ -196,24 +196,24 @@ struct MiniWeekCard: View {
                 .font(.system(size: 28))
             Text("Wk \(info.id)")
                 .font(.system(size: 11, weight: .medium))
-                .foregroundColor(isCurrent ? Color(hex: "F4F7F3") : Color(hex: "1A2820"))
+                .foregroundColor(isCurrent ? Color(hex: "FBF6EE") : Color(hex: "4A3525"))
             Text(info.produceName.components(separatedBy: " ").last ?? info.produceName)
                 .font(.system(size: 9))
-                .foregroundColor(isCurrent ? Color(hex: "C8D4C2") : Color(hex: "7A9183"))
+                .foregroundColor(isCurrent ? Color(hex: "F0DDD0") : Color(hex: "9A7B68"))
                 .lineLimit(1)
         }
         .frame(width: 76)
         .padding(.vertical, 14)
         .background(
             isCurrent
-                ? Color(hex: "4A6B50")
+                ? Color(hex: "C55A3A")
                 : Color.white.opacity(0.7)
         )
         .clipShape(RoundedRectangle(cornerRadius: 14))
         .overlay(
             RoundedRectangle(cornerRadius: 14)
                 .stroke(
-                    isCurrent ? Color.clear : Color(hex: "C8D4C2"),
+                    isCurrent ? Color.clear : Color(hex: "F0DDD0"),
                     lineWidth: 1
                 )
         )

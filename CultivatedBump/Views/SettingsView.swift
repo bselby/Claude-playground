@@ -15,7 +15,7 @@ struct SettingsView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color(hex: "F4F7F3").ignoresSafeArea()
+                Color(hex: "FBF6EE").ignoresSafeArea()
 
                 List {
                     Section {
@@ -24,10 +24,10 @@ struct SettingsView: View {
                                 .font(.system(size: 11, weight: .medium))
                                 .tracking(0.8)
                                 .textCase(.uppercase)
-                                .foregroundColor(Color(hex: "7A9183"))
+                                .foregroundColor(Color(hex: "9A7B68"))
                             Text(dueDateDisplay)
                                 .font(.custom("Palatino", size: 18))
-                                .foregroundColor(Color(hex: "1A2820"))
+                                .foregroundColor(Color(hex: "4A3525"))
                         }
                         .padding(.vertical, 4)
 
@@ -37,10 +37,10 @@ struct SettingsView: View {
                                     .font(.system(size: 11, weight: .medium))
                                     .tracking(0.8)
                                     .textCase(.uppercase)
-                                    .foregroundColor(Color(hex: "7A9183"))
+                                    .foregroundColor(Color(hex: "9A7B68"))
                                 Text("Week \(week)")
                                     .font(.custom("Palatino", size: 18))
-                                    .foregroundColor(Color(hex: "1A2820"))
+                                    .foregroundColor(Color(hex: "4A3525"))
                             }
                             .padding(.vertical, 4)
                         }
@@ -54,7 +54,7 @@ struct SettingsView: View {
                     } footer: {
                         Text("This will remove your saved dates and return you to the beginning. Your data is only stored on this device.")
                             .font(.system(size: 12))
-                            .foregroundColor(Color(hex: "7A9183"))
+                            .foregroundColor(Color(hex: "9A7B68"))
                     }
                 }
                 .scrollContentBackground(.hidden)
@@ -64,7 +64,7 @@ struct SettingsView: View {
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Done") { dismiss() }
-                        .foregroundColor(Color(hex: "4A6B50"))
+                        .foregroundColor(Color(hex: "C55A3A"))
                 }
             }
             .confirmationDialog(

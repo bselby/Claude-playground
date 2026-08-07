@@ -14,7 +14,7 @@ struct OnboardingView: View {
 
     var body: some View {
         ZStack {
-            Color(hex: "F4F7F3").ignoresSafeArea()
+            Color(hex: "FBF6EE").ignoresSafeArea()
 
             VStack(spacing: 0) {
                 Spacer()
@@ -23,10 +23,10 @@ struct OnboardingView: View {
                 VStack(spacing: 8) {
                     Text("Cultivated")
                         .font(.custom("Palatino", size: 42))
-                        .foregroundColor(Color(hex: "1A2820"))
+                        .foregroundColor(Color(hex: "4A3525"))
                     Text("A rather refined pregnancy companion.")
                         .font(.system(size: 14, weight: .regular))
-                        .foregroundColor(Color(hex: "7A9183"))
+                        .foregroundColor(Color(hex: "9A7B68"))
                         .multilineTextAlignment(.center)
                 }
                 .padding(.bottom, 56)
@@ -35,7 +35,7 @@ struct OnboardingView: View {
                 VStack(alignment: .leading, spacing: 24) {
                     Text("Let's begin")
                         .font(.custom("Palatino", size: 22))
-                        .foregroundColor(Color(hex: "1A2820"))
+                        .foregroundColor(Color(hex: "4A3525"))
 
                     // Mode toggle
                     HStack(spacing: 0) {
@@ -43,18 +43,18 @@ struct OnboardingView: View {
                             Button(action: { inputMode = mode }) {
                                 Text(mode.rawValue)
                                     .font(.system(size: 13, weight: .medium))
-                                    .foregroundColor(inputMode == mode ? Color(hex: "F4F7F3") : Color(hex: "7A9183"))
+                                    .foregroundColor(inputMode == mode ? Color(hex: "FBF6EE") : Color(hex: "9A7B68"))
                                     .frame(maxWidth: .infinity)
                                     .padding(.vertical, 10)
                                     .background(
                                         inputMode == mode
-                                            ? Color(hex: "4A6B50")
+                                            ? Color(hex: "C55A3A")
                                             : Color.clear
                                     )
                             }
                         }
                     }
-                    .background(Color(hex: "C8D4C2").opacity(0.4))
+                    .background(Color(hex: "F0DDD0").opacity(0.4))
                     .clipShape(RoundedRectangle(cornerRadius: 10))
 
                     // Helper text
@@ -62,7 +62,7 @@ struct OnboardingView: View {
                          ? "Your due date is 40 weeks from your last period. Your midwife will have confirmed this."
                          : "We'll add 280 days to work out your due date. This is the bit where the calendar gets creative.")
                         .font(.system(size: 13))
-                        .foregroundColor(Color(hex: "7A9183"))
+                        .foregroundColor(Color(hex: "9A7B68"))
                         .fixedSize(horizontal: false, vertical: true)
 
                     // Date button
@@ -70,17 +70,17 @@ struct OnboardingView: View {
                         HStack {
                             Text(dateDisplayText)
                                 .font(.custom("Palatino", size: 18))
-                                .foregroundColor(Color(hex: "1A2820"))
+                                .foregroundColor(Color(hex: "4A3525"))
                             Spacer()
                             Image(systemName: "calendar")
-                                .foregroundColor(Color(hex: "4A6B50"))
+                                .foregroundColor(Color(hex: "C55A3A"))
                         }
                         .padding()
                         .background(Color.white.opacity(0.8))
                         .clipShape(RoundedRectangle(cornerRadius: 12))
                         .overlay(
                             RoundedRectangle(cornerRadius: 12)
-                                .stroke(Color(hex: "C8D4C2"), lineWidth: 1)
+                                .stroke(Color(hex: "F0DDD0"), lineWidth: 1)
                         )
                     }
 
@@ -91,7 +91,7 @@ struct OnboardingView: View {
                             .foregroundColor(.white)
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 16)
-                            .background(Color(hex: "4A6B50"))
+                            .background(Color(hex: "C55A3A"))
                             .clipShape(RoundedRectangle(cornerRadius: 12))
                     }
                 }
@@ -104,7 +104,7 @@ struct OnboardingView: View {
 
                 Text("Your dates are stored only on this device.")
                     .font(.system(size: 11))
-                    .foregroundColor(Color(hex: "7A9183").opacity(0.7))
+                    .foregroundColor(Color(hex: "9A7B68").opacity(0.7))
                     .padding(.bottom, 32)
             }
         }
@@ -144,7 +144,7 @@ struct DatePickerSheet: View {
                     displayedComponents: .date
                 )
                 .datePickerStyle(.graphical)
-                .tint(Color(hex: "4A6B50"))
+                .tint(Color(hex: "C55A3A"))
                 .padding()
             }
             .navigationTitle(mode == .dueDate ? "Your due date" : "Last period date")
@@ -152,7 +152,7 @@ struct DatePickerSheet: View {
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Done") { dismiss() }
-                        .foregroundColor(Color(hex: "4A6B50"))
+                        .foregroundColor(Color(hex: "C55A3A"))
                 }
             }
         }

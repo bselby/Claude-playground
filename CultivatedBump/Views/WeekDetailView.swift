@@ -6,7 +6,7 @@ struct WeekDetailView: View {
 
     var body: some View {
         ZStack {
-            Color(hex: "F4F7F3").ignoresSafeArea()
+            Color(hex: "FBF6EE").ignoresSafeArea()
 
             ScrollView {
                 VStack(spacing: 0) {
@@ -14,7 +14,7 @@ struct WeekDetailView: View {
                     ZStack(alignment: .center) {
                         Text("\(info.id)")
                             .font(.custom("Palatino", size: 220))
-                            .foregroundColor(Color(hex: "4A6B50").opacity(0.06))
+                            .foregroundColor(Color(hex: "C55A3A").opacity(0.06))
 
                         VStack(spacing: 8) {
                             Text(info.produceEmoji)
@@ -22,12 +22,12 @@ struct WeekDetailView: View {
 
                             Text(info.produceName)
                                 .font(.custom("Palatino", size: 28))
-                                .foregroundColor(Color(hex: "1A2820"))
+                                .foregroundColor(Color(hex: "4A3525"))
                                 .multilineTextAlignment(.center)
 
                             Text(info.produceTagline)
                                 .font(.system(size: 13))
-                                .foregroundColor(Color(hex: "7A9183"))
+                                .foregroundColor(Color(hex: "9A7B68"))
                                 .multilineTextAlignment(.center)
                                 .padding(.horizontal, 40)
                         }
@@ -40,14 +40,14 @@ struct WeekDetailView: View {
                         trimesterBadge
                         Text("Week \(info.id) of 40")
                             .font(.system(size: 13))
-                            .foregroundColor(Color(hex: "7A9183"))
+                            .foregroundColor(Color(hex: "9A7B68"))
                     }
                     .padding(.bottom, 32)
 
                     // Measurements
                     HStack {
                         MeasurementCell(icon: "ruler", label: "Length", value: info.formattedLength)
-                        Divider().frame(height: 40).overlay(Color(hex: "C8D4C2"))
+                        Divider().frame(height: 40).overlay(Color(hex: "F0DDD0"))
                         MeasurementCell(icon: "scalemass", label: "Weight", value: info.formattedWeight)
                     }
                     .padding(.horizontal, 24)
@@ -56,7 +56,7 @@ struct WeekDetailView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 16))
                     .overlay(
                         RoundedRectangle(cornerRadius: 16)
-                            .stroke(Color(hex: "C8D4C2"), lineWidth: 1)
+                            .stroke(Color(hex: "F0DDD0"), lineWidth: 1)
                     )
                     .padding(.horizontal, 20)
 
@@ -81,17 +81,17 @@ struct WeekDetailView: View {
             }
         }
         .navigationBarTitleDisplayMode(.inline)
-        .toolbarBackground(Color(hex: "F4F7F3"), for: .navigationBar)
+        .toolbarBackground(Color(hex: "FBF6EE"), for: .navigationBar)
     }
 
     var trimesterBadge: some View {
         Text(info.trimesterLabel)
             .font(.system(size: 11, weight: .medium))
             .tracking(0.8)
-            .foregroundColor(Color(hex: "4A6B50"))
+            .foregroundColor(Color(hex: "C55A3A"))
             .padding(.horizontal, 10)
             .padding(.vertical, 4)
-            .background(Color(hex: "4A6B50").opacity(0.12))
+            .background(Color(hex: "C55A3A").opacity(0.12))
             .clipShape(Capsule())
     }
 }
@@ -105,16 +105,16 @@ struct MeasurementCell: View {
         HStack(spacing: 10) {
             Image(systemName: icon)
                 .font(.system(size: 14))
-                .foregroundColor(Color(hex: "4A6B50").opacity(0.6))
+                .foregroundColor(Color(hex: "C55A3A").opacity(0.6))
             VStack(alignment: .leading, spacing: 2) {
                 Text(label)
                     .font(.system(size: 10, weight: .medium))
                     .tracking(0.8)
                     .textCase(.uppercase)
-                    .foregroundColor(Color(hex: "7A9183"))
+                    .foregroundColor(Color(hex: "9A7B68"))
                 Text(value)
                     .font(.custom("Palatino", size: 20))
-                    .foregroundColor(Color(hex: "1A2820"))
+                    .foregroundColor(Color(hex: "4A3525"))
             }
         }
         .frame(maxWidth: .infinity)
@@ -132,22 +132,22 @@ struct ContentSection: View {
                 .font(.system(size: 11, weight: .medium))
                 .tracking(1.2)
                 .textCase(.uppercase)
-                .foregroundColor(Color(hex: "7A9183"))
+                .foregroundColor(Color(hex: "9A7B68"))
 
             Text(text)
                 .font(.system(size: 15))
-                .foregroundColor(Color(hex: "1A2820"))
+                .foregroundColor(Color(hex: "4A3525"))
                 .lineSpacing(6)
                 .fixedSize(horizontal: false, vertical: true)
         }
         .padding(20)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(accent ? Color(hex: "4A6B50").opacity(0.05) : Color.white.opacity(0.7))
+        .background(accent ? Color(hex: "C55A3A").opacity(0.05) : Color.white.opacity(0.7))
         .clipShape(RoundedRectangle(cornerRadius: 16))
         .overlay(
             RoundedRectangle(cornerRadius: 16)
                 .stroke(
-                    accent ? Color(hex: "4A6B50").opacity(0.2) : Color(hex: "C8D4C2"),
+                    accent ? Color(hex: "C55A3A").opacity(0.2) : Color(hex: "F0DDD0"),
                     lineWidth: 1
                 )
         )

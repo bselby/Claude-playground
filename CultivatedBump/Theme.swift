@@ -1,15 +1,15 @@
 import SwiftUI
 
 enum Theme {
-    // Palette: cool botanical ink — not the expected warm cream
-    static let ink          = Color(hex: "1A2820")
-    static let leaf         = Color(hex: "4A6B50")
-    static let leafLight    = Color(hex: "6B8F72")
-    static let mist         = Color(hex: "E6EDE5")
-    static let chalk        = Color(hex: "F4F7F3")
-    static let stone        = Color(hex: "7A9183")
-    static let dust         = Color(hex: "C8D4C2")
-    static let bronze       = Color(hex: "9E7B50")
+    // Palette: Little Dutch — warm pastels, terracotta, sage, golden
+    static let ink          = Color(hex: "4A3525")
+    static let leaf         = Color(hex: "C55A3A")
+    static let leafLight    = Color(hex: "D4837A")
+    static let mist         = Color(hex: "F9EDE8")
+    static let chalk        = Color(hex: "FBF6EE")
+    static let stone        = Color(hex: "9A7B68")
+    static let dust         = Color(hex: "F0DDD0")
+    static let bronze       = Color(hex: "E8C078")
 
     // Semantic
     static let background   = Color("Background")
